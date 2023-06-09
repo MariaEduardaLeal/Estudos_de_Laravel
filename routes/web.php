@@ -104,3 +104,20 @@ Route::redirect('/sobre', 'empresa');
 });
  */
 Route::view('/empresa', 'site/empresa');
+
+Route::get('/news', function(){
+    return view('news');
+})->name('noticias'); //Estou dizendo qual o nome da rota estou usando
+
+Route::get('/novidades', function(){
+/**Quando eu acessar a url /novidades serei redirecionada
+ * para a página de /news, mas ela não será redirecionada
+ * pela url /news e sim pela rota /noticias que nós
+ * definimos na rota passada
+*/
+    return redirect()->route('noticias');
+/**Essa função é interessante pois mesmo se mudarmos o nome
+ * da url em algum momento a funcionalidade da rota não será
+ * afetada
+ */
+});
