@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+ //Criando minaha primeira rota para uma página
+
 /**Aqui estamos criando uma nova rota
  * definimos que o método dela será
  * um get depois temos que colocar 2 parametros
@@ -23,10 +26,13 @@ Route::get('/', function () {
  * o segundo parametro é uma função de callback, onde vamos
  * retornar uma view
  */
+
 Route::get('/empresa', function(){
     //estou dizendo que ela está dentro da pasta site
     return view('site/empresa');
 });
+
+//Tipos de rotas
 
 Route::any('/any', function(){
     return 'está rota permite todo tipo de acesso http(put, delete, get, post)';
@@ -47,6 +53,9 @@ Route::match(['get', 'post'], '/match', function(){
 Route::match(['post'], '/post', function(){
     return 'permite apenas acessos definidos';
 });
+
+//Passando parâmetros dentro das url
+
 
 /**Passando informações por meio da url
  * na url vamos definir o parametro que vamos passar
@@ -76,3 +85,22 @@ Route::get('/loja/{id}/{categoria}', function($id_produto, $categoria){
 Route::get('/loja/{id}/{categoria?}', function($id_produto, $categoria =''){
     return "O id do produto é:".$id_produto."<br>"."Acategoria é:".$categoria;
 });
+
+//Criando redirecionamentos
+
+
+Route::get('/sobre', function(){
+//Quando eu acessar a url /sobre serei redirecionada para /empresa
+    return redirect('/empresa');
+});
+
+//Maneira simplificada de escrever o código acima
+Route::redirect('/sobre', 'empresa');
+
+/**Maneira simplificada do código a seguir
+ * Route::get('/empresa', function(){
+    //estou dizendo que ela está dentro da pasta site
+    return view('site/empresa');
+});
+ */
+Route::view('/empresa', 'site/empresa');
